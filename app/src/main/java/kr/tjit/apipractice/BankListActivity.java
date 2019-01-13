@@ -64,6 +64,10 @@ public class BankListActivity extends BaseActivity {
 
                         }
                     }
+
+
+
+
                     else {
 
                     }
