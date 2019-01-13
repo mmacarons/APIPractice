@@ -21,7 +21,7 @@ public class ContextUtil {
     public static String getToken(Context context) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
 
-        return pref.getString()
+//        return pref.getString()
     }
 
 }
