@@ -1,7 +1,10 @@
 package kr.tjit.apipractice;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.tjit.apipractice.utils.GlobalData;
@@ -33,6 +36,12 @@ public class MainActivity extends BaseActivity {
 
         String welcomeMessage = String.format("%s님 환영합니다!", GlobalData.loginUser.getName());
         welcomMsgTxt.setText(welcomeMessage);
+
+        userEmailTxt.setText(GlobalData.loginUser.getEmail());
+
+        Log.d("프로필이미지", GlobalData.loginUser.getProfile_image());
+
+        Glide.with(mContext).load(GlobalData.loginUser.getProfile_image()).into(userProfileImgView);
 
     }
 
