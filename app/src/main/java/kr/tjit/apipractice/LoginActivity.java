@@ -1,5 +1,6 @@
 package kr.tjit.apipractice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 import kr.tjit.apipractice.datas.User;
 import kr.tjit.apipractice.utils.ConnectServer;
 import kr.tjit.apipractice.utils.ContextUtil;
+import kr.tjit.apipractice.utils.GlobalData;
 
 public class LoginActivity extends BaseActivity {
 
@@ -57,15 +59,25 @@ public class LoginActivity extends BaseActivity {
                             if (code == 200) {
                                 JSONObject data = json.getJSONObject("data");
                                 JSONObject userJson = data.getJSONObject("user");
+
                                 User user = User.getUserFromJson(userJson);
+                                GlobalData.loginUser = user;
                                 Log.d("로그인응답", "로그인한사람이름 : "+user.getName());
 
+
                                 String token = data.getString("token");
+                                GlobalData.token = token;
+
                                 if (autoLoginCheckBox.isChecked()) {
 //                                    자동로그인을 하고싶다 => SharedPreference을 이용해 토큰을 (반영구) 저장
                                     ContextUtil.setToken(mContext, token);
 
                                 }
+
+                                Intent intent = new Intent(mContext, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+
                             }
                             else {
                                 runOnUiThread(new Runnable() {
