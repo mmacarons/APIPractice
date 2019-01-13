@@ -11,12 +11,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.tjit.apipractice.adapters.BankAdapter;
 import kr.tjit.apipractice.datas.Bank;
 import kr.tjit.apipractice.utils.ConnectServer;
 
 public class BankListActivity extends BaseActivity {
 
     List<Bank> bankList = new ArrayList<Bank>();
+    BankAdapter mAdapter;
+
 
     private android.widget.ListView bankListView;
 
@@ -36,6 +39,9 @@ public class BankListActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+
+        mAdapter = new BankAdapter(mContext, bankList);
+        bankListView.setAdapter(mAdapter);
 
         getBanksFromServer();
 
@@ -63,14 +69,9 @@ public class BankListActivity extends BaseActivity {
                             bankList.add(bankObject);
 
                         }
+                        mAdapter.notifyDataSetChanged();
                     }
 
-
-
-
-                    else {
-
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
