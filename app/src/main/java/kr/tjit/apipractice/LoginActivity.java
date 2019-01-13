@@ -51,10 +51,21 @@ public class LoginActivity extends BaseActivity {
                             final int code = json.getInt("code");
                             final String message = json.getString("message");
 
-                            JSONObject data = json.getJSONObject("data");
-                            JSONObject userJson = data.getJSONObject("user");
-                            User user = User.getUserFromJson(userJson);
-                            Log.d("로그인응답", "로그인한사람이름 : "+user.getName());
+                            if (code == 200) {
+                                JSONObject data = json.getJSONObject("data");
+                                JSONObject userJson = data.getJSONObject("user");
+                                User user = User.getUserFromJson(userJson);
+                                Log.d("로그인응답", "로그인한사람이름 : "+user.getName());
+                            }
+                            else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
 /*
                             runOnUiThread(new Runnable() {
                                 @Override
